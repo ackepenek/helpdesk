@@ -1,0 +1,121 @@
+{% load staticfiles %}
+<head>
+	{% include 'static_base.html' %}
+</head>
+
+<body class="skin-blue fixed">
+	<header class="header">
+		<a href="{% url 'index' %}" class="logo"> 
+			HelpDesk
+		</a>
+		<nav class="navbar navbar-static-top" role="navigation">
+			<div class="navbar-right">
+				<ul class="nav navbar-nav">
+		
+					<li class="dropdown notifications-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+							<i class="fa fa-warning"></i> <span class="label label-warning">{{assigned_tickets|length}}</span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="header">Size atanmış {{assigned_tickets|length}} adet iş var.</li>
+							<li>
+									<ul style="overflow: hidden; width: 100%;"class="menu">
+										{% for ticket in assigned_tickets|slice:"5" %}
+										<li>
+											<a href="{% url "ticket_detail" ticket.id %}">
+												<i class="fa fa-circle"></i>
+												<small>{{ticket.title}}</small>
+											</a>
+										</li>
+										{% endfor %}
+									</ul>
+								
+							</li>
+							<li class="footer"><a href="{% url "ticket_list"%}">Hepsini Gör</a></li>
+						</ul>
+					</li>
+			
+					<li class="dropdown user user-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+							<i class="glyphicon glyphicon-user"></i> 
+							<span>
+								{{user.username}} 
+								<i class="caret"></i>
+							</span>
+						</a>
+						<ul class="dropdown-menu">
+							<!-- User image -->
+							<li class="user-header bg-light-blue">
+							{% if user.userprofile and user.userprofile.profile_photo %}
+								<img src="/{{user.userprofile.profile_photo.url}}" class="img-circle" alt="Resim">
+							{% endif %}
+								<p>
+									{{user.first_name}} {{user.last_name}}
+									<small>{{user.userprofile.title}}</small>
+								</p></li>
+							<li class="user-footer">
+								<div class="row">
+								<div class="col-md-4">
+									<a href="{% url "update_profile" %}" class="btn btn-default btn-flat">
+										<font size="1">
+											<i class="fa fa-user"></i>  Profil
+										</font>
+									</a>
+								</div>
+								<div class="col-md-4 col-md-offset-4">
+								
+									<a href="{% url "logout" %}" class="btn btn-default btn-flat">
+										<font size="1">
+											<i class="fa fa-sign-out"></i>  Çıkış
+										</font>
+									</a>
+								</div>
+								</div>
+							</li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	
+	<div  class="wrapper row-offcanvas row-offcanvas-left">
+		<aside class="left-side sidebar-offcanvas">
+			<section class="sidebar">
+				<div class="user-panel">
+					<div class="pull-left image">
+							{% if user.userprofile and user.userprofile.profile_photo %}
+								<img src="/{{user.userprofile.profile_photo.url}}" class="img-circle" alt="Resim">
+							{% endif %}
+					</div>
+					<div class="pull-left info">
+						<p>{{user.username}}</p>
+						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+					</div>
+				</div>
+				
+				<ul class="sidebar-menu">
+					<li class="active">
+						<a href="{% url "create_ticket" %}"> 
+							<i class="fa fa-bolt"></i> 
+							<span>Yeni İş Oluştur</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url "ticket_list" %}"> 
+							<i class="fa fa-th"></i>
+							<span>İş Listesi</span> 
+						</a>
+					</li>
+				</ul>
+			</section>
+		</aside>
+		<aside class="right-side">
+			{% block content %}
+            {% endblock%}
+        </aside>
+	</div>
+
+
+</body>
+
+       

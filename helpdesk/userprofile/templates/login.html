@@ -1,0 +1,31 @@
+{% include 'static_base.html' %}
+
+
+<div class="login-box container">
+<div class="login-logo">
+    <strong>HelpDesk</strong>
+
+  </div>
+  <div class="login-box-body">
+      {% if note %}
+    	<p class="login-box-msg">{{note}}</p>
+    {% endif %}
+    <form method="post">
+      <div class="form-group">
+        <input name="username" placeholder="Kullanıcı Adı" class="form-control">
+        <span class="glyphicon glyphicon-user"></span>
+      </div>
+      <div class="form-group">
+        <input name="password" type="password" placeholder="Parola" class="form-control">
+        <span class="glyphicon glyphicon-lock"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-8">
+          <button class="btn btn-primary btn-block" type="submit">Giriş</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+

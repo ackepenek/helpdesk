@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <section class="content-header">
+		İş Listesi
+	</section>
+
+    <section class="content">
+		<table class="table table-hover">
+			<thead>
+				<th>İş No</th>
+				<th>Başlık</th>
+				<th>Durum</th>
+				<th>Öncelik</th>
+				<th>Atanan</th>
+			</thead>
+			<tbody>
+				{% for ticket in ticket_list %}
+					<tr>
+						<td><a href={% url "ticket_detail" ticket.id %}>{{ticket.id}}</a></td>
+						<td>{{ticket.title}}</td>
+						<td>{{ticket.status}}</td>
+						<td>{{ticket.priority}}</td>
+						<td>{{ticket.followup_set.all.0.assigned_user.user.username}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}
