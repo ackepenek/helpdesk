@@ -1,9 +1,0 @@
-eclipse.preferences.version=1
-encoding//ticketsystem/admin.py=utf-8
-encoding//ticketsystem/context_processors.py=utf-8
-encoding//ticketsystem/forms.py=utf-8
-encoding//ticketsystem/models.py=utf-8
-encoding//ticketsystem/views.py=utf-8
-encoding//userprofile/forms.py=utf-8
-encoding//userprofile/models.py=utf-8
-encoding//userprofile/views.py=utf-8
