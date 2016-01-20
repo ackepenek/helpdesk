@@ -12,16 +12,24 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 from django.conf.global_settings import MEDIA_ROOT
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+## settings.py'yi githubta tutugumuz icin
+## Guvende tutulmasi gereken kisimlari dogrudan settings.py icerisine YAZMAMALIYIZ.
+
+import ConfigParser
+COMMON_CONFIG_FILE= '/opt/helpdesk.config'
+config=ConfigParser.ConfigParser()
+config.read(COMMON_CONFIG_FILE)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'lup-1%_hlxfb*s^+8_wdr1cjmhhbyavdwl=-82@!)4kw4s9d(y'
+SECRET_KEY = config.get("DJANGO", "secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,24 +91,30 @@ WSGI_APPLICATION = 'helpdesk.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config.get("DB", "database"),
+           'USER': config.get("DB", "dbuser"),
+           'PASSWORD': config.get("DB", "pass"),
+           'HOST': config.get("DB", "host"),
+           'PORT': config.get("DB", "port"),
+           },
+        }
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'tr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+## Sunucunun timezonunu kullanacaksak USE_TZ=False olmali
+#USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

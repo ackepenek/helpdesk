@@ -1,0 +1,9 @@
+[DB]
+host:<host>
+port:<port>
+database:<db_name>
+dbuser:<db_user>
+pass:<db_pass>
+
+[DJANGO]
+secret_key:<application secret key>
