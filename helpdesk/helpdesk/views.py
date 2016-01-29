@@ -6,11 +6,8 @@ Created on Jan 16, 2016
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def index(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect(reverse("login"))
-        
-    else:
-        return render(request, "index.html")
+    return render(request, "index.html")
